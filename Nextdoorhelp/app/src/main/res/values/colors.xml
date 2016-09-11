@@ -5,4 +5,11 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorIntroBackground">#257DA1</color>
     <color name="splash_color">#69C0DA</color>
+
+    <color name="coffee_selection">#CDDC39</color>
+    <color name="pizza_selection">#FFC107</color>
+    <color name="beer_selection">#FF5722</color>
+    <color name="ui_highlight">#263238</color>
+    <color name="ratings">#FF9800</color>
+
 </resources>
