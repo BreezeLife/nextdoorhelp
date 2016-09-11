@@ -33,19 +33,23 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            </activity>
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".activities.LoginActivity"
+        <activity
+            android:name=".activities.LoginActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.NearbyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.NeedHelperActivity"
+            android:label="@string/title_activity_need_helper"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".activities.NearbyActivity"
-            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

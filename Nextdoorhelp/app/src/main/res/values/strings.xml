@@ -21,7 +21,7 @@
 
     <string name="facebook_app_id">594502184091803</string>
 
-    <string name="startup_caption">What do you need?</string>
+    <string name="startup_caption">What can you help?</string>
 
     <!-- Menu titles -->
     <string name="menu_dress">Dress</string>
@@ -33,9 +33,11 @@
 
 
     <!-- Result messages -->
-    <string name="results_bar">bars nearby</string>
-    <string name="results_coffee">coffee places nearby</string>
-    <string name="results_pizza">pizza parlours nearby</string>
+    <string name="results_catering">food need nearby</string>
+    <string name="results_restroom">restroom need nearby</string>
+    <string name="results_bathroom">bathroom need nearby</string>
+    <string name="results_furniture">furniture need nearby</string>
+    <string name="results_suit">dress need nearby</string>
     <string name="miles">miles away</string>
 
     <!-- Graphic attribute titles - used in UI -->
@@ -56,5 +58,6 @@
     <string name="coffee_query">Coffee Shop</string>
     <string name="pizza_query">Pizza</string>
     <string name="bar_query">Pub</string>
+    <string name="title_activity_need_helper">NeedHelperActivity</string>
 
 </resources>

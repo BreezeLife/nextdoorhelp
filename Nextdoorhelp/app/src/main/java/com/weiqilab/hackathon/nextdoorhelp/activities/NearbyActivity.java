@@ -1,10 +1,13 @@
 package com.weiqilab.hackathon.nextdoorhelp.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -183,6 +186,19 @@ public class NearbyActivity extends AppCompatActivity {
         mCateringIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.catering_black_small));
         mBathroomIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.bathroom_black_small));
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#303F9F")));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+                intent = new Intent(NearbyActivity.this, NeedHelperActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_righttoleft, R.anim.exit_righttoleft);
+                finish();
+//               git
+            }
+        });
 
         setupLocator();
         setupLocationListener();
@@ -299,7 +315,7 @@ public class NearbyActivity extends AppCompatActivity {
                                 symbol = mFurnitureIcon;
                             } else if (mCurrentSearchType == SearchType.BATHROOM) {
                                 mResultsLayer.setSelectionColor(getResources().getColor(
-                                        R.color.pizza_selection));
+                                        R.color.beer_selection));
                                 symbol = mBathroomIcon;
                             } else if (mCurrentSearchType == SearchType.CATERING) {
                                 mResultsLayer.setSelectionColor(getResources().getColor(
@@ -380,19 +396,19 @@ public class NearbyActivity extends AppCompatActivity {
 
         switch (searchType) {
             case RESTROOM:
-                searchTypeMessage = getResources().getString(R.string.results_coffee);
+                searchTypeMessage = getResources().getString(R.string.results_restroom);
                 break;
             case DRESS:
-                searchTypeMessage = getResources().getString(R.string.results_pizza);
+                searchTypeMessage = getResources().getString(R.string.results_suit);
                 break;
             case FURNITURE:
-                searchTypeMessage = getResources().getString(R.string.results_bar);
+                searchTypeMessage = getResources().getString(R.string.results_furniture);
                 break;
             case CATERING:
-                searchTypeMessage = getResources().getString(R.string.results_pizza);
+                searchTypeMessage = getResources().getString(R.string.results_catering);
                 break;
             case BATHROOM:
-                searchTypeMessage = getResources().getString(R.string.results_bar);
+                searchTypeMessage = getResources().getString(R.string.results_bathroom);
                 break;
         }
 
@@ -531,7 +547,7 @@ public class NearbyActivity extends AppCompatActivity {
 
         String title = attributes.get(getResources().getString(
                 R.string.result_title)).toString();
-        mTitleTextView.setText(title);
+        //mTitleTextView.setText(title);
 
         String address = attributes.get(getResources().getString(
                 R.string.result_address)).toString();

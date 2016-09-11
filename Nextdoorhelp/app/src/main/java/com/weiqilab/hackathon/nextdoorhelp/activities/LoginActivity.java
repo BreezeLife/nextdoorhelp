@@ -265,7 +265,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToNextPage() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, NearbyActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.enter_righttoleft, R.anim.exit_righttoleft);
 
