@@ -27,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity">
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait">
             </activity>
 
         <meta-data
@@ -35,6 +36,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

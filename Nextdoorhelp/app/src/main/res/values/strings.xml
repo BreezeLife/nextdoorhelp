@@ -16,5 +16,8 @@
         completions."
     </string>
 
+    <!-- String for shared prefs -->
+    <string name="shared_pref_name">user_session</string>
+
     <string name="facebook_app_id">594502184091803</string>
 </resources>
