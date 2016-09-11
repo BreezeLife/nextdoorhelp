@@ -24,10 +24,13 @@
     <string name="startup_caption">What do you need?</string>
 
     <!-- Menu titles -->
-    <string name="menu_bar">Bar</string>
-    <string name="menu_coffee">Coffee</string>
-    <string name="menu_pizza">Pizza</string>
+    <string name="menu_dress">Dress</string>
+    <string name="menu_bathroom">Bathroom</string>
+    <string name="menu_restroom">Restroom</string>
+    <string name="menu_catering">Food</string>
+    <string name="menu_furniture">Furniture</string>
     <string name="menu_locate">Locate</string>
+
 
     <!-- Result messages -->
     <string name="results_bar">bars nearby</string>

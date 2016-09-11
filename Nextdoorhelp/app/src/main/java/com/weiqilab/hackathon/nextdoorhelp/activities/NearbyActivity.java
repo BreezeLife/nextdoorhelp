@@ -56,9 +56,11 @@ public class NearbyActivity extends AppCompatActivity {
 
     // Define types of search.
     private enum SearchType {
-        BAR,
-        PIZZA,
-        COFFEE,
+        RESTROOM,
+        DRESS,
+        FURNITURE,
+        CATERING,
+        BATHROOM
     }
     SearchType mCurrentSearchType;
     final static double ZOOM_BY = 20;
@@ -68,7 +70,8 @@ public class NearbyActivity extends AppCompatActivity {
     MapView mMapView = null;
     SpatialReference mMapSr = null;
     GraphicsLayer mResultsLayer = null;
-    PictureMarkerSymbol mCoffeeMapIcon, mBarMapIcon, mPizzaMapIcon;
+    //PictureMarkerSymbol mCoffeeMapIcon, mBarMapIcon, mPizzaMapIcon;
+    PictureMarkerSymbol mDressIcon, mFurnitureIcon, mRestroomIcon, mCateringIcon, mBathroomIcon;
 
     // Views to show selected search result information.
     TextView mTitleTextView;
@@ -169,9 +172,17 @@ public class NearbyActivity extends AppCompatActivity {
         mResultsLayer.setSelectionColorWidth(6);
         mMapView.addLayer(mResultsLayer);
 
-        mCoffeeMapIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_local_cafe_black));
-        mPizzaMapIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_local_pizza_black));
-        mBarMapIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_local_drink_black));
+//        mCoffeeMapIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_local_cafe_black));
+//        mPizzaMapIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_local_pizza_black));
+//        mBarMapIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_local_drink_black));
+
+        //mDressIcon, mFurnitureIcon, mRestroomIcon, mCateringIcon, mBathroomIcon;
+        mDressIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.dress_black_small));
+        mFurnitureIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.furniture_black_small));
+        mRestroomIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.toilet_black_small));
+        mCateringIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.catering_black_small));
+        mBathroomIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.bathroom_black_small));
+
 
         setupLocator();
         setupLocationListener();
@@ -274,18 +285,26 @@ public class NearbyActivity extends AppCompatActivity {
                         if (results.size() > 0) {
                             // Set specific symbols and selection color for each type of search.
                             Symbol symbol = null;
-                            if (mCurrentSearchType == SearchType.BAR) {
+                            if (mCurrentSearchType == SearchType.RESTROOM) {
                                 mResultsLayer.setSelectionColor(getResources().getColor(
                                         R.color.beer_selection));
-                                symbol = mBarMapIcon;
-                            } else if (mCurrentSearchType == SearchType.PIZZA) {
+                                symbol = mRestroomIcon;
+                            } else if (mCurrentSearchType == SearchType.DRESS) {
                                 mResultsLayer.setSelectionColor(getResources().getColor(
                                         R.color.pizza_selection));
-                                symbol = mPizzaMapIcon;
-                            } else if (mCurrentSearchType == SearchType.COFFEE) {
+                                symbol = mDressIcon;
+                            } else if (mCurrentSearchType == SearchType.FURNITURE) {
                                 mResultsLayer.setSelectionColor(getResources().getColor(
                                         R.color.coffee_selection));
-                                symbol = mCoffeeMapIcon;
+                                symbol = mFurnitureIcon;
+                            } else if (mCurrentSearchType == SearchType.BATHROOM) {
+                                mResultsLayer.setSelectionColor(getResources().getColor(
+                                        R.color.pizza_selection));
+                                symbol = mBathroomIcon;
+                            } else if (mCurrentSearchType == SearchType.CATERING) {
+                                mResultsLayer.setSelectionColor(getResources().getColor(
+                                        R.color.coffee_selection));
+                                symbol = mCateringIcon;
                             }
 
                             // For each result, create a Graphic, using result attributes as
@@ -360,13 +379,19 @@ public class NearbyActivity extends AppCompatActivity {
         String searchTypeMessage = "";
 
         switch (searchType) {
-            case COFFEE:
+            case RESTROOM:
                 searchTypeMessage = getResources().getString(R.string.results_coffee);
                 break;
-            case PIZZA:
+            case DRESS:
                 searchTypeMessage = getResources().getString(R.string.results_pizza);
                 break;
-            case BAR:
+            case FURNITURE:
+                searchTypeMessage = getResources().getString(R.string.results_bar);
+                break;
+            case CATERING:
+                searchTypeMessage = getResources().getString(R.string.results_pizza);
+                break;
+            case BATHROOM:
                 searchTypeMessage = getResources().getString(R.string.results_bar);
                 break;
         }
@@ -398,10 +423,10 @@ public class NearbyActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.bar:
+            case R.id.dress:
                 if (mMapView.isLoaded()) {
                     clearCurrentResults();
-                    mCurrentSearchType = SearchType.BAR;
+                    mCurrentSearchType = SearchType.DRESS;
                     try {
                         doFindNearbyAsync(getResources().getString(R.string.bar_query));
                     } catch (Exception e) {
@@ -411,9 +436,9 @@ public class NearbyActivity extends AppCompatActivity {
                 }
                 return true;
 
-            case R.id.pizza:
+            case R.id.furniture:
                 if (mMapView.isLoaded()) {
-                    mCurrentSearchType = SearchType.PIZZA;
+                    mCurrentSearchType = SearchType.FURNITURE;
                     try {
                         doFindNearbyAsync(getResources().getString(R.string.pizza_query));
                     } catch (Exception e) {
@@ -423,11 +448,37 @@ public class NearbyActivity extends AppCompatActivity {
 
                 return true;
 
-            case R.id.coffee:
+            case R.id.bathroom:
                 if (mMapView.isLoaded()) {
-                    mCurrentSearchType = SearchType.COFFEE;
+                    mCurrentSearchType = SearchType.BATHROOM;
                     try {
                         doFindNearbyAsync(getResources().getString(R.string.coffee_query));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                return true;
+
+            case R.id.restroom:
+                if (mMapView.isLoaded()) {
+                    mCurrentSearchType = SearchType.RESTROOM;
+                    try {
+                        doFindNearbyAsync(getResources().getString(R.string.coffee_query));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                return true;
+
+            case R.id.catering:
+                if (mMapView.isLoaded()) {
+                    mCurrentSearchType = SearchType.CATERING;
+                    try {
+                        doFindNearbyAsync(getResources().getString(R.string.bar_query));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

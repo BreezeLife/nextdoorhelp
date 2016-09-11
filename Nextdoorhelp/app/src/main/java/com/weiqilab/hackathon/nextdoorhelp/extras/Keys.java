@@ -17,6 +17,7 @@ public class Keys {
 
         String EXTRA_PROFILE_USER_ID = "user_profile_id";
         String EXTRA_PROFILE_USER_TOKEN = "user_profile_token";
+        String EXTRA_PROFILE_USER_SOCIAL_TOKEN = "user_profile_social_token";
         String EXTRA_PROFILE_BIRTHDAY = "user_profile_birthday";
         String EXTRA_PROFILE_SKI_LEVEL = "user_profile_ski_level";
         String EXTRA_PROFILE_FULL_NAME = "user_profile_full_name";

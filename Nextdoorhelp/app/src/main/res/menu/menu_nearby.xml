@@ -3,22 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/coffee"
-        android:icon="@drawable/ic_local_cafe_white"
+        android:id="@+id/dress"
+        android:icon="@drawable/dress_white_small"
         app:showAsAction="always"
-        android:title="@string/menu_coffee"/>
+        android:title="@string/menu_dress"/>
 
     <item
-        android:id="@+id/pizza"
-        android:icon="@drawable/ic_local_pizza_white"
+        android:id="@+id/furniture"
+        android:icon="@drawable/furniture_white_small"
         app:showAsAction="always"
-        android:title="@string/menu_pizza"/>
+        android:title="@string/menu_furniture"/>
 
     <item
-        android:id="@+id/bar"
-        android:icon="@drawable/ic_local_drink_white"
+        android:id="@+id/restroom"
+        android:icon="@drawable/toilet_white_small"
         app:showAsAction="always"
-        android:title="@string/menu_bar"/>
+        android:title="@string/menu_restroom"/>
+
+    <item
+        android:id="@+id/bathroom"
+        android:icon="@drawable/bathroom_white_small"
+        app:showAsAction="always"
+        android:title="@string/menu_bathroom"/>
+
+    <item
+        android:id="@+id/catering"
+        android:icon="@drawable/catering_white_small"
+        app:showAsAction="always"
+        android:title="@string/menu_catering"/>
 
     <item
         android:id="@+id/locate"

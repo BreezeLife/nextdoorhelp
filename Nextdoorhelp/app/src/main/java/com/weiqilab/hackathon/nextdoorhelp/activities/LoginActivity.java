@@ -209,8 +209,8 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString(Keys.ExtraGeneral.EXTRA_LOGIN_REQUEST_FIELD, str_loginReqField);
         }
 
-        if(str_userToken != null && str_userToken.length() != 0) {
-            editor.putString(Keys.ExtraGeneral.EXTRA_PROFILE_USER_TOKEN, str_userToken);
+        if(str_oauthSocialNetworkAccessToken != null && str_oauthSocialNetworkAccessToken.length() != 0) {
+            editor.putString(Keys.ExtraGeneral.EXTRA_PROFILE_USER_SOCIAL_TOKEN, str_oauthSocialNetworkAccessToken);
         }
 
         if(str_userId != null && str_userId.length() != 0) {
