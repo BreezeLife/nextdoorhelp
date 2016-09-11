@@ -1,4 +1,4 @@
-package weiqiapp.weiqilab.com.nextdoorhelp;
+package com.weiqilab.hackathon.nextdoorhelp;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
