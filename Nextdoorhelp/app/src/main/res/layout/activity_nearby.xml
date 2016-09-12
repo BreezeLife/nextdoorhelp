@@ -43,11 +43,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text=""
             android:id="@+id/addressTextView"
             android:padding="@dimen/small_space"
-            android:textColor="@android:color/secondary_text_dark_nodisable" />
+            android:textColor="@android:color/black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -75,7 +75,11 @@
                 android:text=""
                 android:id="@+id/phoneTextView"
                 android:padding="@dimen/small_space" />
-
+            <Button
+                android:id="@+id/btn_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACCEPT!"/>
         </LinearLayout>
 
         <RatingBar
@@ -87,24 +91,42 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <Button
+        android:id="@+id/btn_icanhelp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I need a helper ->"
-            android:textSize="30dp"
-            android:layout_alignBottom="@+id/fab"
-            android:layout_toStartOf="@+id/fab" />
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_menu_help"
-            android:layout_alignParentRight="true"
-            app:backgroundTint="#1e4b77" />
-    </RelativeLayout>
+        android:text="I can help!"
+        android:textSize="30dp"
+        android:background="@color/bt_blue"
+        />
+
+    <Button
+        android:id="@+id/btn_ineedhelp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="I need a help!"
+        android:textSize="30dp"
+        android:background="@color/bt_red"
+        />
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="I need a helper ->"-->
+                <!--android:textSize="30dp"-->
+                <!--android:layout_alignBottom="@+id/fab"-->
+                <!--android:layout_toStartOf="@+id/fab" />-->
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/fab"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"wr-->
+                <!--android:layout_margin="@dimen/fab_margin"-->
+                <!--android:src="@android:drawable/ic_menu_help"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--app:backgroundTint="#1e4b77" />-->
+        <!--</RelativeLayout>-->
 </LinearLayout>

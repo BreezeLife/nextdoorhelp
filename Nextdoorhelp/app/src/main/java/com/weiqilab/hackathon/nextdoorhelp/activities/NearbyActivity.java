@@ -1,13 +1,13 @@
 package com.weiqilab.hackathon.nextdoorhelp.activities;
 
+import android.Manifest;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,12 +16,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.braintreepayments.api.BraintreePaymentActivity;
+import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.LocationDisplayManager;
 import com.esri.android.map.MapView;
@@ -41,6 +44,9 @@ import com.esri.core.symbol.Symbol;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
 import com.esri.core.tasks.geocode.LocatorGeocodeResult;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 import com.weiqilab.hackathon.nextdoorhelp.R;
 
 import java.util.ArrayList;
@@ -49,11 +55,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import cz.msebera.android.httpclient.Header;
+
 /**
  * Created by Weiqi Zhao on 9/11/16.
  * Copyright (c) 2016 Weiqi Zhao. All rights reserved.
  */
 public class NearbyActivity extends AppCompatActivity {
+
+    private static final String SERVER_BASE = "http://2ab0658a.ngrok.io"; // Replace with your own server
+    private static final int REQUEST_CODE = Menu.FIRST;
+    private AsyncHttpClient client = new AsyncHttpClient();
+    private String clientToken;
+
 
     private static final String TAG = NearbyActivity.class.getSimpleName();
 
@@ -83,6 +97,7 @@ public class NearbyActivity extends AppCompatActivity {
     ImageView mPhoneImageView;
     TextView mDistanceTextView;
     RatingBar mRatingBar;
+    Button mButtonAccept;
 
     Locator mLocator;
     ArrayList<String> mFindOutFields = new ArrayList<>();
@@ -156,6 +171,19 @@ public class NearbyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby);
 
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            //Toast.makeText(this, R.string.error_permission_map, Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
+        }
+
+        getToken();
+
         mMapView = (MapView) findViewById(R.id.map);
         mMapView.setOnStatusChangedListener(statusChangedListener);
         mMapView.setOnSingleTapListener(mapTapCallback);
@@ -170,6 +198,35 @@ public class NearbyActivity extends AppCompatActivity {
         mDistanceTextView = (TextView) findViewById(R.id.distanceTextView);
         mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
         mProgress = (ProgressBar) findViewById(R.id.findProgress);
+        mButtonAccept = (Button) findViewById(R.id.btn_accept);
+        mButtonAccept.setVisibility(View.GONE);
+
+        mButtonAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+//                builder.setMessage("Restroom for $20.00. Accept?");
+//                builder.setPositiveButton("Accept",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+                                Toast.makeText(getBaseContext(), "Lets make it happen.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(NearbyActivity.this, PayActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.enter_righttoleft, R.anim.exit_righttoleft);
+//                            }
+//                        });
+//
+//                builder.setNeutralButton("Cancel",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                builder.show();
+
+
+            }
+        });
 
         mResultsLayer = new GraphicsLayer();
         mResultsLayer.setSelectionColorWidth(6);
@@ -186,19 +243,29 @@ public class NearbyActivity extends AppCompatActivity {
         mCateringIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.catering_black_small));
         mBathroomIcon = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.bathroom_black_small));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#303F9F")));
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button ineedhelpBtn = (Button)findViewById(R.id.btn_ineedhelp);
+        ineedhelpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = null;
                 intent = new Intent(NearbyActivity.this, NeedHelperActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter_righttoleft, R.anim.exit_righttoleft);
-                finish();
-//               git
             }
         });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#303F9F")));
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = null;
+//                intent = new Intent(NearbyActivity.this, NeedHelperActivity.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.enter_righttoleft, R.anim.exit_righttoleft);
+//                finish();
+//               git
+            //}
+       // });
 
         setupLocator();
         setupLocationListener();
@@ -424,6 +491,7 @@ public class NearbyActivity extends AppCompatActivity {
                 mPhoneImageView.setImageDrawable(null);
                 mDistanceTextView.setText("");
                 mRatingBar.setVisibility(View.GONE);
+                mButtonAccept.setVisibility(View.GONE);
             }
         });
     }
@@ -532,6 +600,7 @@ public class NearbyActivity extends AppCompatActivity {
         mDistanceTextView.setText("");
         mRatingBar.setRating(0);
         mRatingBar.setVisibility(View.GONE);
+        mButtonAccept.setVisibility(View.GONE);
     }
 
 
@@ -569,12 +638,13 @@ public class NearbyActivity extends AppCompatActivity {
 
         String phone = attributes.get(getResources().getString(
                 R.string.result_phone)).toString();
-        mPhoneTextView.setText(phone);
+        mPhoneTextView.setText(phone + " $20.00");
         mPhoneImageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_action_call));
 
         Float rating = Float.parseFloat(getRating());
         mRatingBar.setRating(rating);
         mRatingBar.setVisibility(View.VISIBLE);
+        mButtonAccept.setVisibility(View.VISIBLE);
     }
 
     public void showToastOnUiThread(final String message) {
@@ -619,5 +689,45 @@ public class NearbyActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == BraintreePaymentActivity.RESULT_OK) {
+            PaymentMethodNonce paymentMethodNonce = data.getParcelableExtra(BraintreePaymentActivity.EXTRA_PAYMENT_METHOD_NONCE);
+
+            RequestParams requestParams = new RequestParams();
+            requestParams.put("payment_method_nonce", paymentMethodNonce.getNonce());
+            requestParams.put("total", "3.00");
+            requestParams.put("service", "0.03");
+            requestParams.put("merchant_id", "yin_chen");
+
+            client.post(SERVER_BASE + "/process", requestParams, new TextHttpResponseHandler() {
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    Toast.makeText(NearbyActivity.this, responseString, Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                    Toast.makeText(NearbyActivity.this, responseString, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+
+    private void getToken() {
+        client.get(SERVER_BASE + "/token", new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                //findViewById(R.id.btn_start).setEnabled(false);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                clientToken = responseString;
+                //findViewById(R.id.btn_start).setEnabled(true);
+            }
+        });
+    }
 
 }

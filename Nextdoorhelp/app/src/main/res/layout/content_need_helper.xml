@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,6 +10,68 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.weiqilab.hackathon.nextdoorhelp.activities.NeedHelperActivity"
-    tools:showIn="@layout/activity_need_helper">
+    tools:showIn="@layout/activity_need_helper"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    >
 
-</RelativeLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:orientation="horizontal"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:layout_marginBottom="40dp"
+        android:layout_weight="70">
+
+        <Space/>
+
+        <ImageButton
+            android:id="@+id/dressbtn"
+            android:background="@drawable/dress_white_small" android:backgroundTint="@color/bt_blue" android:layout_height="60dp" android:layout_width="60dp"/>
+
+        <Space/>
+
+        <ImageButton
+            android:id="@+id/furniturebtn"
+            android:background="@drawable/furniture_white_small" android:backgroundTint="@color/bt_blue" android:layout_height="60dp" android:layout_width="60dp"/>
+
+        <ImageButton
+            android:id="@+id/toiletbtn"
+            android:background="@drawable/toilet_white_small" android:backgroundTint="@color/bt_blue" android:layout_height="60dp" android:layout_width="60dp"/>
+
+        <ImageButton
+            android:id="@+id/bathroombtn"
+            android:background="@drawable/bathroom_white_small" android:backgroundTint="@color/bt_blue" android:layout_height="60dp" android:layout_width="60dp"/>
+
+        <Space/>
+
+        <ImageButton
+            android:id="@+id/cateringbtn"
+            android:background="@drawable/catering_white_small" android:backgroundTint="@color/bt_blue" android:layout_height="60dp" android:layout_width="60dp"/>
+        <Space/>
+
+    </GridLayout>
+
+
+    <TextView
+        android:id="@+id/yourchoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:textColor="@color/bt_black"
+        />
+
+    <Button
+        android:id="@+id/btn_helpme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HELP ME!"
+        android:textSize="30dp"
+        android:background="@color/bt_blue"
+        android:layout_weight="30"
+        />
+
+</LinearLayout>

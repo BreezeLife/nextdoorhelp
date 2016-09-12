@@ -47,8 +47,11 @@
             android:name=".activities.NearbyActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activities.PayActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.NeedHelperActivity"
-            android:label="@string/title_activity_need_helper"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

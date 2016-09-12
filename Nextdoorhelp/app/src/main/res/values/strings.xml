@@ -21,7 +21,7 @@
 
     <string name="facebook_app_id">594502184091803</string>
 
-    <string name="startup_caption">What can you help?</string>
+    <string name="startup_caption">Who can help you?</string>
 
     <!-- Menu titles -->
     <string name="menu_dress">Dress</string>
@@ -33,11 +33,16 @@
 
 
     <!-- Result messages -->
-    <string name="results_catering">food need nearby</string>
-    <string name="results_restroom">restroom need nearby</string>
-    <string name="results_bathroom">bathroom need nearby</string>
-    <string name="results_furniture">furniture need nearby</string>
-    <string name="results_suit">dress need nearby</string>
+    <string name="results_catering">food helper nearby</string>
+    <string name="results_restroom">restroom helper nearby</string>
+    <string name="results_bathroom">bathroom helper nearby</string>
+    <string name="results_furniture">furniture helper nearby</string>
+    <string name="results_suit">dress helper nearby</string>
+    <string name="results_catering_need">food need nearby</string>
+    <string name="results_restroom_need">restroom need nearby</string>
+    <string name="results_bathroom_need">bathroom need nearby</string>
+    <string name="results_furniture_need">furniture need nearby</string>
+    <string name="results_suit_need">dress need nearby</string>
     <string name="miles">miles away</string>
 
     <!-- Graphic attribute titles - used in UI -->

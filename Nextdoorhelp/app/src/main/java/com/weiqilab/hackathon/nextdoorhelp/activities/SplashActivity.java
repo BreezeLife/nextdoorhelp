@@ -54,12 +54,10 @@ public class SplashActivity extends Activity {
                     intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.enter_righttoleft, R.anim.exit_righttoleft);
-                    finish();
                 } else {
                     intent = new Intent(SplashActivity.this, NearbyActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.enter_righttoleft, R.anim.exit_righttoleft);
-                    finish();
                 }
 
                 // close this activity
